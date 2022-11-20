@@ -30,7 +30,6 @@ storages = {
 
 
 def main():
-    global courier
     while True:
         for storage in storages.keys():
             print(f'В {storage} хранится:\n\n{storages[storage].get_items()}\n')
@@ -46,8 +45,7 @@ def main():
             courier.pickup()
             courier.deliver()
         except BaseError as e:
-            print(e.__class__.__name__)
-            if e.__class__.__name__ == 'TooMuchProductError':
+            if isinstance(e, TooMuchProductError):
                 courier.return_products()
             print(e.message)
 
